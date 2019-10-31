@@ -29,4 +29,7 @@ private:
   const ImVec4 colorSoftLightGreen = { 0.74f, 0.98f, 0.74f, 0.415f };
   const ImVec4 colorSoftBlue = { 0.56f, 0.56f, 0.95f, 1.f };
   const ImVec4 colorSoftWhiteBlue = { 0.74f, 0.74f, 0.98f, 1.f };
+  const ImVec4 colorSoftRed = { 0.98f, 0.34f, 0.34f, 0.915f };
+
+  std::deque<ImVec2> last100Points;
 };

@@ -19,6 +19,7 @@ void ProjectExample::draw()
   const ImU32 boxColorPacked = ImGui::ColorConvertFloat4ToU32(colorSoftLightGray);
   const ImU32 circleColorPacked = ImGui::ColorConvertFloat4ToU32(colorSoftBlue);
   const ImU32 circleColorHighlightedPacked = ImGui::ColorConvertFloat4ToU32(colorSoftWhiteBlue);
+  const ImU32 mouseCollisionColorPacked = ImGui::ColorConvertFloat4ToU32(colorSoftRed);
 
   const auto windowHorizontalCenter = windowSize.x * 0.5f + windowPos.x; // 50%, middle of screen
   const auto windowLeftDrawBound = windowSize.x * 0.1f + windowPos.x; // 10% on left side of screen
@@ -38,9 +39,15 @@ void ProjectExample::draw()
   {
     // Draw a sphere in the center
     if (const auto mousePos = ImGui::GetMousePos(); imgui_point_circle(mousePos, { windowHorizontalCenter, windowVerticalCenter }, circleRadius))
+    {
       drawList->AddCircleFilled({ windowHorizontalCenter, windowVerticalCenter }, circleRadius, circleColorHighlightedPacked, circleDivisions);
-    else 
+      drawList->AddCircleFilled(mousePos, 8.f - 8.f * (sqrt(((windowHorizontalCenter - mousePos.x) * (windowHorizontalCenter - mousePos.x)) + ((windowVerticalCenter - mousePos.y) * (windowVerticalCenter - mousePos.y))) / circleRadius),
+        mouseCollisionColorPacked, circleDivisions);
+    }
+    else
+    {
       drawList->AddCircleFilled({ windowHorizontalCenter, windowVerticalCenter }, circleRadius, circleColorPacked, circleDivisions);
+    }
   }
 }
 
@@ -117,7 +124,7 @@ void ProjectExample::draw_menus()
     // Make sure to end the menu
     ImGui::EndMenu();
   }
-  
+
   // Add more ImGui::BeginMenu(...) for additional menus
 }
 
